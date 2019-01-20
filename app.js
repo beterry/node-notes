@@ -11,30 +11,27 @@ let command = argv._[0];
 console.log('Yargs', argv);
 console.log('Command:', command);
 
-switch (command){
-  case 'add':
-    let note = notes.addNote(argv.title, argv.body);
+  if (command == 'add'){
+    const note = notes.addNote(argv.title, argv.body);
     if (note){
       console.log('Note created');
-      console.log('----');
-      console.log(`Title: ${note.title}`);
-      console.log(`Body: ${note.body}`);
-      console.log('----');
+      notes.logNote(note);
     } else {
       console.log('That note already exists!');
     }
-    break;
-  case 'list':
+  } else if (command == 'list'){
     notes.getAll();
-    break;
-  case 'read':
-    notes.readNote(argv.title);
-    break;
-  case 'remove':
+  } else if (command == 'read'){
+    const note = notes.readNote(argv.title);
+    if (note){
+      notes.logNote(note);
+    } else{
+      console.log('Note not found');
+    }
+  } else if (command == 'remove'){
     let noteRemoved = notes.removeNote(argv.title);
     let message = noteRemoved ? 'Note removed' : 'Note not removed';
     console.log(message);
-    break;
-  default:
+  } else{
     console.log('Command not found');
-};
+  }
