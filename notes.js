@@ -34,6 +34,7 @@ let getAll = () => {
 };
 
 let readNote = (title) => {
+  debugger;
   let notes = fetchNotes();
   let matchingNote = notes.filter((note) => note.title == title);
   return matchingNote[0];
